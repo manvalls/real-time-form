@@ -35,4 +35,17 @@ export type FormState<ResultType = any, ErrorType = any> = {
   pristine: string[];
   setPristine: React.Dispatch<React.SetStateAction<string[]>>;
   realTimeSubmit: (submitter?: HTMLElement | null) => void;
+
+  scrollTargets: {
+    [field: string]: React.RefObject<HTMLElement | null>[];
+  };
+
+  registerScrollTarget: (
+    field: string,
+    ref: React.RefObject<HTMLElement | null>
+  ) => void;
+  unregisterScrollTarget: (
+    field: string,
+    ref: React.RefObject<HTMLElement | null>
+  ) => void;
 };

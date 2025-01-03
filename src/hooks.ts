@@ -1,7 +1,7 @@
 "use client";
 import { useContext, useEffect } from "react";
 import type { FormState } from "./types";
-import { FormStateContext } from "./context";
+import { FormStateContext, WrapperContext } from "./context";
 import React = require("react");
 
 export const useFormState = <ResultType = any, ErrorType = any>(): FormState<
@@ -19,6 +19,7 @@ export type FieldProps = {
 
 export const useField = (props: FieldProps) => {
   const { setPristine, realTimeSubmit } = useFormState();
+  const [addField, removeField] = useContext(WrapperContext);
 
   useEffect(() => {
     setPristine((pristine) => {
@@ -29,8 +30,11 @@ export const useField = (props: FieldProps) => {
       return pristine;
     });
 
+    addField(props.name);
+
     return () => {
       setPristine((pristine) => pristine.filter((p) => p !== props.name));
+      removeField(props.name);
     };
   }, [props.name]);
 
@@ -62,4 +66,9 @@ export const useField = (props: FieldProps) => {
     onBlur,
     onChange,
   };
+};
+
+export const useWrapperContext = () => {
+  const [addField, removeField, fields, errors] = useContext(WrapperContext);
+  return { addField, removeField, fields, errors };
 };

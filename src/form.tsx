@@ -26,6 +26,30 @@ export const Form = <ResultType = any, ErrorType = any>({
 }: FormProps<ResultType, ErrorType>) => {
   const formRef = useRef<HTMLFormElement>(null);
 
+  const [scrollTargets, setScrollTargets] = useState<{
+    [field: string]: React.RefObject<HTMLElement | null>[];
+  }>({});
+
+  const registerScrollTarget = (
+    field: string,
+    ref: React.RefObject<HTMLElement | null>
+  ) => {
+    setScrollTargets((scrollTargets) => ({
+      ...scrollTargets,
+      [field]: [...(scrollTargets[field] || []), ref],
+    }));
+  };
+
+  const unregisterScrollTarget = (
+    field: string,
+    ref: React.RefObject<HTMLElement | null>
+  ) => {
+    setScrollTargets((scrollTargets) => ({
+      ...scrollTargets,
+      [field]: (scrollTargets[field] || []).filter((r) => r !== ref),
+    }));
+  };
+
   const realTimeSubmit = useDebouncedCallback(
     (submitter?: HTMLElement | null) => {
       if (realTime) {
@@ -45,7 +69,16 @@ export const Form = <ResultType = any, ErrorType = any>({
 
   return (
     <FormStateContext.Provider
-      value={{ lastResponse, pending, pristine, setPristine, realTimeSubmit }}
+      value={{
+        lastResponse,
+        pending,
+        pristine,
+        setPristine,
+        realTimeSubmit,
+        scrollTargets,
+        registerScrollTarget,
+        unregisterScrollTarget,
+      }}
     >
       <form {...props} action={formAction} ref={formRef}>
         {children}
