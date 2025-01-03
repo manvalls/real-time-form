@@ -14,7 +14,7 @@ export type WrapperProps<T> = {
   }) => React.ReactNode;
 };
 
-export function Wrapper<ErrorType>({
+export function Wrapper<ErrorType = any>({
   scrollTarget,
   children,
 }: WrapperProps<ErrorType>) {
