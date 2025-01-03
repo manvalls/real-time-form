@@ -12,5 +12,5 @@ export type TextAreaProps = BaseProps & {
 
 export const TextArea = (props: TextAreaProps) => {
   const fieldProps = useField(props);
-  return <TextArea {...props} {...fieldProps} />;
+  return <textarea {...props} {...fieldProps} />;
 };
