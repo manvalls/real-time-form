@@ -9,6 +9,8 @@ export const ErrorMessageContext = createContext<FormErrorHandler>(
 export const FormStateContext = createContext<FormState>({
   pending: false,
   lastResponse: null,
+  pristine: [],
+  setPristine: () => {},
 });
 
 export const FormOptionsContext = createContext({
