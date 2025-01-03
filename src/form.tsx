@@ -1,7 +1,8 @@
 "use client";
-import { useActionState, useState } from "react";
+import { useActionState, useState, useRef } from "react";
+import { useDebouncedCallback } from "use-debounce";
 import { FormAction } from "./types";
-import { FormStateContext, FormOptionsContext } from "./context";
+import { FormStateContext } from "./context";
 
 type BaseProps = React.DetailedHTMLProps<
   React.FormHTMLAttributes<HTMLFormElement>,
@@ -23,6 +24,17 @@ export const Form = <ResultType = any, ErrorType = any>({
   children,
   ...props
 }: FormProps<ResultType, ErrorType>) => {
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const realTimeSubmit = useDebouncedCallback(
+    (submitter?: HTMLElement | null) => {
+      if (realTime) {
+        formRef.current?.requestSubmit(submitter);
+      }
+    },
+    debounce
+  );
+
   const [lastResponse, formAction, pending] = useActionState(
     action,
     null,
@@ -33,13 +45,11 @@ export const Form = <ResultType = any, ErrorType = any>({
 
   return (
     <FormStateContext.Provider
-      value={{ lastResponse, pending, pristine, setPristine }}
+      value={{ lastResponse, pending, pristine, setPristine, realTimeSubmit }}
     >
-      <FormOptionsContext.Provider value={{ realTime, debounce }}>
-        <form {...props} action={formAction}>
-          {children}
-        </form>
-      </FormOptionsContext.Provider>
+      <form {...props} action={formAction} ref={formRef}>
+        {children}
+      </form>
     </FormStateContext.Provider>
   );
 };

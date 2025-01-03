@@ -31,7 +31,8 @@ export type FormAction<ResultType = any, ErrorType = any> = (
 
 export type FormState<ResultType = any, ErrorType = any> = {
   pending: boolean;
+  lastResponse: FormResponse<ResultType, ErrorType> | null;
   pristine: string[];
   setPristine: React.Dispatch<React.SetStateAction<string[]>>;
-  lastResponse: FormResponse<ResultType, ErrorType> | null;
+  realTimeSubmit: (submitter?: HTMLElement | null) => void;
 };

@@ -10,10 +10,6 @@ export const FormStateContext = createContext<FormState>({
   pending: false,
   lastResponse: null,
   pristine: [],
+  realTimeSubmit: () => {},
   setPristine: () => {},
-});
-
-export const FormOptionsContext = createContext({
-  realTime: false,
-  debounce: 300,
 });
