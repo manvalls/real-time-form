@@ -3,7 +3,7 @@ import { createContext } from "react";
 import { FormErrorHandler, FormState } from "./types";
 
 export const ErrorMessageContext = createContext<FormErrorHandler>(
-  ({ error }) => error
+  ({ error }) => <div className="form-error">{error}</div>
 );
 
 export const FormStateContext = createContext<FormState>({
