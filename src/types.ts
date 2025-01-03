@@ -27,7 +27,7 @@ export type FormResponse<ResultType = any, ErrorType = any> =
 export type FormAction<ResultType = any, ErrorType = any> = (
   lastResponse: FormResponse<ResultType, ErrorType> | null,
   formData: FormData
-) => FormResponse<ResultType, ErrorType>;
+) => Promise<FormResponse<ResultType, ErrorType>>;
 
 export type FormState<ResultType = any, ErrorType = any> = {
   pending: boolean;

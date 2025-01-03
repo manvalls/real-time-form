@@ -25,6 +25,7 @@
     "react": "next"
   },
   "devDependencies": {
+    "@types/react": "^19.0.2",
     "typescript": "^5.7.2"
   }
 }

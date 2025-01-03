@@ -10,3 +10,8 @@ export const FormStateContext = createContext<FormState>({
   pending: false,
   lastResponse: null,
 });
+
+export const FormOptionsContext = createContext({
+  realTime: false,
+  debounce: 300,
+});
