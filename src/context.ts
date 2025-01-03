@@ -1,17 +1,12 @@
 "use client";
 import { createContext } from "react";
-import { ErrorHandler } from "./types";
+import { FormErrorHandler, FormState } from "./types";
 
-export const ErrorMessageContext = createContext<ErrorHandler>(
-  (error) => error
+export const ErrorMessageContext = createContext<FormErrorHandler>(
+  ({ error }) => error
 );
 
-export const FormContext = createContext<{
-  pending: boolean;
-  success: boolean;
-  errors: { [key: string]: any[] };
-}>({
+export const FormStateContext = createContext<FormState>({
   pending: false,
-  success: false,
-  errors: {},
+  lastResponse: null,
 });
