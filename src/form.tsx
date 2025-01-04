@@ -1,5 +1,5 @@
 "use client";
-import { useActionState, useState, useRef } from "react";
+import { useActionState, useState, useRef, useTransition } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { FormAction } from "./types";
 import { FormStateContext } from "./context";
@@ -60,17 +60,23 @@ export const Form = <ResultType = any, ErrorType = any>({
     debounce
   );
 
-  const [lastResponse, formAction, pending] = useActionState(
+  const [lastResponse, formAction, formPending] = useActionState(
     action,
     null,
     permalink
   );
 
+  const [transitionPending, startTransition] = useTransition();
+
+  const pending = formPending || transitionPending;
+
   const [pristine, setPristine] = useState<string[]>([]);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    formAction(new FormData(e.currentTarget));
+    startTransition(() => {
+      formAction(new FormData(e.currentTarget));
+    });
   }
 
   return (
