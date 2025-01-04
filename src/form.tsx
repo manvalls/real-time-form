@@ -15,7 +15,7 @@ export type FormProps<ResultType = any, ErrorType = any> = {
   realTime?: boolean;
   debounce?: number;
   permalink?: string;
-} & BaseProps;
+} & Omit<BaseProps, "action">;
 
 export const Form = <ResultType = any, ErrorType = any>({
   action,
