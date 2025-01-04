@@ -68,6 +68,11 @@ export const Form = <ResultType = any, ErrorType = any>({
 
   const [pristine, setPristine] = useState<string[]>([]);
 
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    formAction(new FormData(e.currentTarget));
+  }
+
   return (
     <FormStateContext.Provider
       value={{
@@ -83,7 +88,12 @@ export const Form = <ResultType = any, ErrorType = any>({
     >
       <Wrapper includeAll ref={formRef}>
         {() => (
-          <form {...props} action={formAction} ref={formRef}>
+          <form
+            {...props}
+            action={formAction}
+            onSubmit={onSubmit}
+            ref={formRef}
+          >
             {children}
           </form>
         )}
