@@ -8,3 +8,4 @@ export * from "./input";
 export * from "./textarea";
 export * from "./wrapper";
 export * from "./label";
+export * from "./section";
