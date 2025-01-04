@@ -86,7 +86,7 @@ export const Form = <ResultType = any, ErrorType = any>({
     }
 
     startTransition(() => {
-      formAction(new FormData(e.currentTarget));
+      formAction(formData);
     });
   }
 
