@@ -12,6 +12,7 @@ export type LabelProps = {
   includeAll?: boolean;
   scrollTarget?: boolean;
   errorProps?: BaseProps;
+  errorClassName?: string;
 } & BaseProps;
 
 export const Label = ({
@@ -21,6 +22,7 @@ export const Label = ({
   scrollTarget = true,
   children,
   errorProps,
+  errorClassName,
   ...props
 }: LabelProps) => {
   return (
@@ -35,6 +37,10 @@ export const Label = ({
         };
 
         if (errors.length) {
+          if (errorClassName) {
+            labelProps.className += ` ${errorClassName}`;
+          }
+
           Object.assign(labelProps, errorProps);
         }
 
