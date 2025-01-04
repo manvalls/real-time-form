@@ -74,6 +74,17 @@ export const Form = <ResultType = any, ErrorType = any>({
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    const submitter = (e.nativeEvent as SubmitEvent).submitter as
+      | HTMLButtonElement
+      | HTMLInputElement
+      | null;
+
+    if (submitter) {
+      formData.append(submitter.name, submitter.value);
+    }
+
     startTransition(() => {
       formAction(new FormData(e.currentTarget));
     });
