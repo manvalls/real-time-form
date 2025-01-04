@@ -3,6 +3,7 @@ import { useActionState, useState, useRef } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { FormAction } from "./types";
 import { FormStateContext } from "./context";
+import { Wrapper } from "./wrapper";
 
 type BaseProps = React.DetailedHTMLProps<
   React.FormHTMLAttributes<HTMLFormElement>,
@@ -80,9 +81,13 @@ export const Form = <ResultType = any, ErrorType = any>({
         unregisterScrollTarget,
       }}
     >
-      <form {...props} action={formAction} ref={formRef}>
-        {children}
-      </form>
+      <Wrapper includeAll ref={formRef}>
+        {() => (
+          <form {...props} action={formAction} ref={formRef}>
+            {children}
+          </form>
+        )}
+      </Wrapper>
     </FormStateContext.Provider>
   );
 };
