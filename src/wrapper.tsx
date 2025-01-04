@@ -90,12 +90,12 @@ export function Wrapper<ErrorType = any, ElementType = HTMLElement>({
   useEffect(() => {
     if (scrollTarget) {
       fieldList.forEach((field) => {
-        registerScrollTarget(field, ref);
+        registerScrollTarget(field, ref as any);
       });
 
       return () => {
         fieldList.forEach((field) => {
-          unregisterScrollTarget(field, ref);
+          unregisterScrollTarget(field, ref as any);
         });
       };
     }
