@@ -6,6 +6,8 @@ export const ErrorMessageContext = createContext<FormErrorHandler>(
   ({ error }) => <div className="form-error">{error}</div>
 );
 
+export const FormErrorMessageProvider = ErrorMessageContext.Provider;
+
 export const FormStateContext = createContext<FormState>({
   pending: false,
   lastResponse: null,
