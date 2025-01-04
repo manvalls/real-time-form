@@ -5,32 +5,32 @@ import { WrapperContext } from "./context";
 import { useFormState } from "./hooks";
 import { FormError } from "./types";
 
-export type WrapperProps<T> = {
+export type WrapperProps<T, E> = {
   include?: RegExp;
   exclude?: RegExp;
   includeAll?: boolean;
   scrollTarget?: boolean;
-  ref?: React.RefObject<HTMLElement | null>;
+  ref?: React.RefObject<E | null>;
   children: (wrappedFields: {
     fields: string[];
     errors: FormError<T>[];
-    ref: React.RefObject<HTMLElement | null>;
+    ref: React.RefObject<E | null>;
   }) => React.ReactNode;
 };
 
-export function Wrapper<ErrorType = any>({
+export function Wrapper<ErrorType = any, ElementType = HTMLElement>({
   scrollTarget,
   children,
   include,
   exclude,
   includeAll,
   ref: propsRef,
-}: WrapperProps<ErrorType>) {
+}: WrapperProps<ErrorType, ElementType>) {
   const [fields, setFields] = useState<{ [field: string]: number }>({});
   const { lastResponse, registerScrollTarget, unregisterScrollTarget } =
     useFormState<any, ErrorType>();
   const [parentAddField, parentRemoveField] = useContext(WrapperContext);
-  const ref = propsRef || useRef<HTMLElement>(null);
+  const ref = propsRef || useRef<ElementType>(null);
 
   const unfilteredList = useMemo(
     () => Object.keys(fields).filter((field) => fields[field] > 0),

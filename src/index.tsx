@@ -7,3 +7,4 @@ export * from "./submitbutton";
 export * from "./input";
 export * from "./textarea";
 export * from "./wrapper";
+export * from "./label";
