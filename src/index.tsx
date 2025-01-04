@@ -6,6 +6,7 @@ export * from "./form";
 export * from "./submitbutton";
 export * from "./input";
 export * from "./textarea";
+export * from "./select";
 export * from "./wrapper";
 export * from "./label";
 export * from "./section";
