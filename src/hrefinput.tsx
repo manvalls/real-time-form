@@ -13,7 +13,7 @@ export type HrefInput = Omit<BaseProps, "type" | "value"> & {
 
 export const HrefInput = (props: HrefInput) => {
   const pathname = usePathname();
-  const [href, setHref] = useState<string | undefined>();
+  const [href, setHref] = useState("");
 
   useEffect(() => {
     if (globalThis.location) {
