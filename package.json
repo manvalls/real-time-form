@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/manvalls/real-time-form#readme",
   "peerDependencies": {
-    "react": "next"
+    "react": "^19.0.0",
+    "next": "15.1.2"
   },
   "devDependencies": {
     "@types/react": "^19.0.2",
